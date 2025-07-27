@@ -7,7 +7,7 @@ import {
  * Simplified SeparatorBuilder that provides a cleaner API for creating separator components
  */
 export class SeparatorBuilder {
-  private separator: DiscordSeparatorBuilder;
+  private readonly separator: DiscordSeparatorBuilder;
 
   constructor() {
     this.separator = new DiscordSeparatorBuilder();

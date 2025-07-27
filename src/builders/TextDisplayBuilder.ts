@@ -4,7 +4,7 @@ import { TextDisplayBuilder as DiscordTextDisplayBuilder } from 'discord.js';
  * Simplified TextDisplayBuilder that provides a cleaner API for creating text display components
  */
 export class TextDisplayBuilder {
-  private textDisplay: DiscordTextDisplayBuilder;
+  private readonly textDisplay: DiscordTextDisplayBuilder;
 
   constructor() {
     this.textDisplay = new DiscordTextDisplayBuilder();

@@ -10,7 +10,7 @@ import { StringSelectMenuBuilder } from './StringSelectMenuBuilder';
  * Simplified ActionRowBuilder that provides a cleaner API for creating action row components
  */
 export class ActionRowBuilder {
-  private actionRow: DiscordActionRowBuilder;
+  private readonly actionRow: DiscordActionRowBuilder;
 
   constructor() {
     this.actionRow = new DiscordActionRowBuilder();

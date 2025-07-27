@@ -13,7 +13,7 @@ import { ActionRowBuilder } from './ActionRowBuilder';
  * Simplified ContainerBuilder that provides a cleaner API for creating Discord.js v2 Container components
  */
 export class ContainerBuilder {
-  private container: DiscordContainerBuilder;
+  private readonly container: DiscordContainerBuilder;
 
   constructor() {
     this.container = new DiscordContainerBuilder();

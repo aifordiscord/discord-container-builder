@@ -7,7 +7,7 @@ import {
  * Simplified ButtonBuilder that provides a cleaner API for creating button components
  */
 export class ButtonBuilder {
-  private button: DiscordButtonBuilder;
+  private readonly button: DiscordButtonBuilder;
 
   constructor() {
     this.button = new DiscordButtonBuilder();

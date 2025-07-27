@@ -15,7 +15,7 @@ export interface SelectOption {
  * Simplified StringSelectMenuBuilder that provides a cleaner API for creating select menu components
  */
 export class StringSelectMenuBuilder {
-  private selectMenu: DiscordStringSelectMenuBuilder;
+  private readonly selectMenu: DiscordStringSelectMenuBuilder;
 
   constructor() {
     this.selectMenu = new DiscordStringSelectMenuBuilder();
