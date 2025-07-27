@@ -1,0 +1,84 @@
+modules = ["nodejs-20"]
+
+[nix]
+channel = "stable-25_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Build and Test"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "test-package"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "build"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "test"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "test-final"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "final-build"
+
+[[workflows.workflow]]
+name = "Build and Test"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install && npm run build && npm test"
+
+[[workflows.workflow]]
+name = "test-package"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install && npm test"
+
+[[workflows.workflow]]
+name = "build"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx rollup -c"
+
+[[workflows.workflow]]
+name = "test"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx jest"
+
+[[workflows.workflow]]
+name = "test-final"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx jest --passWithNoTests"
+
+[[workflows.workflow]]
+name = "final-build"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx rollup -c && npx jest"
