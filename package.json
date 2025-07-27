@@ -44,7 +44,7 @@
     "url": "https://github.com/aifordiscord/discord-container-builder/issues"
   },
   "peerDependencies": {
-    "discord.js": "^14.0.0"
+    "discord.js": "^14.21.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.6",
@@ -61,6 +61,5 @@
     "rollup-plugin-dts": "^6.2.1",
     "ts-jest": "^29.4.0",
     "typescript": "^5.8.3"
-    
   }
 }

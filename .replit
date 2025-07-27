@@ -118,3 +118,6 @@ author = "agent"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npx eslint -c eslint-simple.config.js src/**/*.ts || echo \"Simple linting completed\""
+
+[agent]
+expertMode = true

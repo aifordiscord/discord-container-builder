@@ -30,6 +30,7 @@ export default [
         tsconfig: './tsconfig.json',
         sourceMap: true,
         inlineSources: !production,
+        module: 'esnext',
       }),
 
     ],
