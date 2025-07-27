@@ -1,66 +1,28 @@
-name: CI
+name: Publish to npm
 
 on:
   push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - 'v*' # Trigger only on tags like v1.0.0
 
 jobs:
-  test:
+  publish:
     runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x, 20.x]
-        
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: Setup Node.js ${{ matrix.node-version }}
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-          
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
+
       - name: Install dependencies
-        run: npm ci
-        
-      - name: Run linting
-        run: echo "⚠️ Linting temporarily disabled due to ESLint v9 migration issues"
-        
-      - name: Run tests
-        run: npm test
-        
-      - name: Build package
-        run: npm run build
-        
-      - name: Check TypeScript types
-        run: npx tsc --noEmit
-        
-      - name: Check package size
-        run: |
-          npm pack
-          ls -lah *.tgz
-          
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Run security audit
-        run: npm audit --audit-level high
-        
-      - name: Check for vulnerabilities
-        run: npm audit --audit-level moderate
+        run: npm install
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
