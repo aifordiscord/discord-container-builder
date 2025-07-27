@@ -1,0 +1,79 @@
+// index.js
+const {
+  Client,
+  GatewayIntentBits,
+  ContainerBuilder,
+  SectionBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  StringSelectMenuBuilder,
+  MessageFlags,
+  TextDisplayBuilder,
+  SeparatorBuilder,
+  SeparatorSpacingSize,
+} = require("discord.js");
+const { TOKEN } = require("./config.json");
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+client.once("ready", () => {
+  console.log(`✅ Logged in as ${client.user.tag}`);
+});
+
+client.on("interactionCreate", async (interaction) => {
+  if (interaction.isChatInputCommand() && interaction.commandName === "plan") {
+    // Build the ComponentsV2 container
+    const container = new ContainerBuilder()
+      .addTextDisplayComponents(
+        new TextDisplayBuilder().setContent("**📋 Plan Selector**\nChoose a plan below:")
+      )
+      .addSeparatorComponents(
+        new SeparatorBuilder()
+          .setSpacing(SeparatorSpacingSize.Small)
+          .setDivider(true)
+      )
+      .addActionRowComponents(
+        new ActionRowBuilder().addComponents(
+          new ButtonBuilder()
+            .setCustomId("plan_basic")
+            .setLabel("Basic")
+            .setStyle(ButtonStyle.Primary),
+          new ButtonBuilder()
+            .setCustomId("plan_premium")
+            .setLabel("Premium")
+            .setStyle(ButtonStyle.Success)
+        ),
+        new ActionRowBuilder().addComponents(
+          new StringSelectMenuBuilder()
+            .setCustomId("plan_dropdown")
+            .setPlaceholder("Select a plan...")
+            .addOptions([
+              { label: "Basic", value: "basic", description: "Basic Plan" },
+              { label: "Premium", value: "premium", description: "Premium Plan" },
+            ])
+        )
+      );
+
+    await interaction.reply({
+      components: [container],
+      flags: MessageFlags.IsComponentsV2,
+    });
+  }
+
+  // Handle component interactions
+  if (interaction.isButton()) {
+    await interaction.reply({
+      content: `You selected the **${interaction.customId.replace("plan_", "")}** plan!`,
+      ephemeral: true,
+    });
+  }
+  if (interaction.isStringSelectMenu()) {
+    await interaction.reply({
+      content: `You selected from dropdown: **${interaction.values[0]}**!`,
+      ephemeral: true,
+    });
+  }
+});
+
+client.login(TOKEN);
