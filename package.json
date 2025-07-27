@@ -1,6 +1,6 @@
 {
   "name": "discord-container-builder",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simplified, developer-friendly API for Discord.js v2 Components that reduces boilerplate and improves code readability.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
